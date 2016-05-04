@@ -16,7 +16,7 @@ ipcMain.on('weather', (event, weather) => {
 })
 
 const createTray = () => {
-  tray = new Tray(path.join(__dirname, 'assets', 'trayTemplate.png'))
+  tray = new Tray(path.join(__dirname, 'assets', 'sunTemplate.png'))
   tray.setToolTip('Weather')
   tray.on('click', (event, bounds) => toggleWindow(bounds))
   tray.on('double-click', (event, bounds) => toggleWindow(bounds))
