@@ -11,8 +11,9 @@ app.on('ready', () => {
 })
 
 ipcMain.on('weather', (event, weather) => {
-  const {icon, temperature} = weather.currently
+  const {icon, summary, temperature} = weather.currently
   tray.setTitle(`${Math.round(temperature)}°`)
+  tray.setToolTip(summary)
 
   switch (icon) {
     case 'cloudy':
@@ -40,7 +41,6 @@ ipcMain.on('weather', (event, weather) => {
 
 const createTray = () => {
   tray = new Tray(path.join(__dirname, 'assets', 'sunTemplate.png'))
-  tray.setToolTip('Weather')
   tray.on('click', (event, bounds) => toggleWindow(bounds))
   tray.on('double-click', (event, bounds) => toggleWindow(bounds))
 }
