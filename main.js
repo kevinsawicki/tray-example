@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Tray} = require('electron')
+const {app, BrowserWindow, ipcMain, Tray} = require('electron')
 const path = require('path')
 
 let tray
@@ -8,6 +8,11 @@ app.dock.hide()
 app.on('ready', () => {
   createTray()
   createWindow()
+})
+
+ipcMain.on('weather', (event, weather) => {
+  const {temperature} = weather.currently
+  tray.setTitle(`${Math.round(temperature)}°`)
 })
 
 const createTray = () => {
