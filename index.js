@@ -1,4 +1,4 @@
-const {ipcRenderer} = require('electron')
+const {ipcRenderer, shell} = require('electron')
 
 const getGeoLocation = () => {
   return new Promise((resolve, reject) => {
@@ -7,7 +7,10 @@ const getGeoLocation = () => {
 }
 
 const getWeather = (position) => {
+  // FIXME replace with your own API key
+  // Register for one at https://developer.forecast.io/register
   const apiKey = '781969e20c5d295ae9bd8da62df0d3f7'
+
   const location = `${position.coords.latitude},${position.coords.longitude}`
   const url = `https://api.forecast.io/forecast/${apiKey}/${location}`
 
@@ -72,5 +75,12 @@ const updateWeather = () => {
   const fiveMinutes = 5 * 60 * 1000
   setTimeout(updateWeather, fiveMinutes)
 }
+
+document.addEventListener('click', (event) => {
+  if (event.target.href) {
+    shell.openExternal(event.target.href)
+    event.preventDefault()
+  }
+})
 
 updateWeather()

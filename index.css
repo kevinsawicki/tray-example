@@ -57,3 +57,13 @@
   font-size: 11px;
   font-weight: 300;
 }
+
+.footer-link {
+  padding-top: 5px;
+  padding-left: 10px;
+  float: left;
+}
+
+.footer-link a {
+  color: #333;
+}
