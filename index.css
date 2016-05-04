@@ -35,13 +35,11 @@
   text-align: center;
 }
 
-.full-width {
+
+.summary {
   width: 100%;
   margin: auto;
   text-align: center;
-}
-
-.summary {
   margin-top: 16px;
   font-size: 14px;
   font-weight: 300;
