@@ -10,35 +10,6 @@ app.on('ready', () => {
   createWindow()
 })
 
-ipcMain.on('weather', (event, weather) => {
-  const {icon, summary, temperature} = weather.currently
-  tray.setTitle(`${Math.round(temperature)}°`)
-  tray.setToolTip(summary)
-
-  switch (icon) {
-    case 'cloudy':
-    case 'fog':
-    case 'partly-cloudy-day':
-    case 'partly-cloudy-night':
-      tray.setImage(path.join(__dirname, 'assets', 'cloudTemplate.png'))
-      break
-    case 'rain':
-    case 'sleet':
-    case 'snow':
-      tray.setImage(path.join(__dirname, 'assets', 'umbrellaTemplate.png'))
-      break
-    case 'clear-night':
-      tray.setImage(path.join(__dirname, 'assets', 'moonTemplate.png'))
-      break
-    case 'wind':
-      tray.setImage(path.join(__dirname, 'assets', 'flagTemplate.png'))
-      break
-    case 'clear-day':
-    default:
-      tray.setImage(path.join(__dirname, 'assets', 'sunTemplate.png'))
-  }
-})
-
 const createTray = () => {
   tray = new Tray(path.join(__dirname, 'assets', 'sunTemplate.png'))
   tray.on('click', (event, bounds) => toggleWindow(bounds))
@@ -67,3 +38,32 @@ const toggleWindow = (trayIconBounds) => {
   window.setPosition(x, y, false)
   window.isVisible() ? window.hide() : window.show()
 }
+
+ipcMain.on('weather', (event, weather) => {
+  const {icon, summary, temperature} = weather.currently
+  tray.setTitle(`${Math.round(temperature)}°`)
+  tray.setToolTip(summary)
+
+  switch (icon) {
+    case 'cloudy':
+    case 'fog':
+    case 'partly-cloudy-day':
+    case 'partly-cloudy-night':
+      tray.setImage(path.join(__dirname, 'assets', 'cloudTemplate.png'))
+      break
+    case 'rain':
+    case 'sleet':
+    case 'snow':
+      tray.setImage(path.join(__dirname, 'assets', 'umbrellaTemplate.png'))
+      break
+    case 'clear-night':
+      tray.setImage(path.join(__dirname, 'assets', 'moonTemplate.png'))
+      break
+    case 'wind':
+      tray.setImage(path.join(__dirname, 'assets', 'flagTemplate.png'))
+      break
+    case 'clear-day':
+    default:
+      tray.setImage(path.join(__dirname, 'assets', 'sunTemplate.png'))
+  }
+})

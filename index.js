@@ -18,17 +18,23 @@ const getWeather = (position) => {
 
 const render = (weather) => {
   const currently = weather.currently
+
+  document.querySelector('.js-summary').textContent = currently.summary
+
   document.querySelector('.js-temperature').textContent = `${Math.round(currently.temperature)}° F`
   document.querySelector('.js-apparent').textContent = `${Math.round(currently.apparentTemperature)}° F`
+
   document.querySelector('.js-wind').textContent = `${Math.round(currently.windSpeed)} mph`
   document.querySelector('.js-wind-direction').textContent = getWindDirection(currently.windBearing)
+
   document.querySelector('.js-dewpoint').textContent = `${Math.round(currently.dewPoint)}° F`
   document.querySelector('.js-humidity').textContent = `${Math.round(currently.humidity * 100)}%`
+
   document.querySelector('.js-visibility').textContent = `${Math.round(currently.windSpeed)} miles`
   document.querySelector('.js-cloud-cover').textContent = `${Math.round(currently.cloudCover * 100)}%`
+
   document.querySelector('.js-precipitation-chance').textContent = `${Math.round(currently.precipProbability * 100)}%`
   document.querySelector('.js-precipitation-rate').textContent = `${Math.round(currently.precipIntensity * 100)}%`
-  document.querySelector('.js-summary').textContent = currently.summary
 }
 
 const getWindDirection = (direction) => {
