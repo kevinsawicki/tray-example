@@ -1,0 +1,38 @@
+.header-arrow {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  margin-left: -5px;
+  height: 10px;
+  width: 10px;
+  transform: rotate(45deg);
+  background-color: #e8e6e8;
+}
+
+.window {
+  position: absolute;
+  top: 5px;
+}
+
+.toolbar {
+  box-shadow: none;
+}
+
+.window, .toolbar-header {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.column {
+  width: 50%;
+  float: left;
+  margin: auto;
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+  float: left;
+  margin: auto;
+  text-align: center;
+}

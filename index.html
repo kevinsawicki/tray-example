@@ -3,9 +3,94 @@
   <head>
     <meta charset="utf-8">
     <title>Weather</title>
-    <script>require('./index.js')</script>
+    <link rel="stylesheet" href="./vendor/css/photon.css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="./index.css" media="screen" charset="utf-8">
+    <script charset="utf-8">
+      require('./index')
+    </script>
   </head>
   <body>
-    Weather
+    <div class="header-arrow"></div>
+    <div class="window">
+      <header class="toolbar toolbar-header">
+        <h1 class="title">The Weather</h1>
+      </header>
+
+      <div class="window-content">
+        <div class="pane">
+          <div class="full-width">
+            <h1 class="js-summary"></h1>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <div class="js-temperature"></div>
+              <div class="">temperature</div>
+            </div>
+            <div class="column">
+              <div class="js-apparent"></div>
+              <div class="">feels like</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <div class="js-wind"></div>
+              <div class="">wind speed</div>
+            </div>
+            <div class="column">
+              <div class="js-wind-direction"></div>
+              <div class="">wind direction</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <div class="js-humidity"></div>
+              <div class="">humidity</div>
+            </div>
+
+            <div class="column">
+              <div class="js-dewpoint"></div>
+              <div class="">dew point</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <div class="js-visibility"></div>
+              <div class="">visibility</div>
+            </div>
+
+            <div class="column">
+              <div class="js-cloud-cover"></div>
+              <div class="">cloud cover</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <div class="js-precipitation-chance"></div>
+              <div class="">precipitation</div>
+            </div>
+
+            <div class="column">
+              <div class="js-precipitation-rate"></div>
+              <div class="">inches per hour</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="toolbar toolbar-footer">
+
+        <div class="toolbar-actions pull-right">
+          <button class="btn btn-default js-refresh-action">
+            <span class="icon icon-arrows-ccw"></span>
+          </button>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
