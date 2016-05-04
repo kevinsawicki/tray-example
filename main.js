@@ -1,8 +1,8 @@
 const {app, BrowserWindow, ipcMain, Tray} = require('electron')
 const path = require('path')
 
-let tray
-let window
+let tray = undefined
+let window = undefined
 
 app.dock.hide()
 app.on('ready', () => {
