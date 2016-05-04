@@ -11,8 +11,31 @@ app.on('ready', () => {
 })
 
 ipcMain.on('weather', (event, weather) => {
-  const {temperature} = weather.currently
+  const {icon, temperature} = weather.currently
   tray.setTitle(`${Math.round(temperature)}°`)
+
+  switch (icon) {
+    case 'cloudy':
+    case 'fog':
+    case 'partly-cloudy-day':
+    case 'partly-cloudy-night':
+      tray.setImage(path.join(__dirname, 'assets', 'cloudTemplate.png'))
+      break
+    case 'rain':
+    case 'sleet':
+    case 'snow':
+      tray.setImage(path.join(__dirname, 'assets', 'umbrellaTemplate.png'))
+      break
+    case 'clear-night':
+      tray.setImage(path.join(__dirname, 'assets', 'moonTemplate.png'))
+      break
+    case 'wind':
+      tray.setImage(path.join(__dirname, 'assets', 'flagTemplate.png'))
+      break
+    case 'clear-day':
+    default:
+      tray.setImage(path.join(__dirname, 'assets', 'sunTemplate.png'))
+  }
 })
 
 const createTray = () => {
