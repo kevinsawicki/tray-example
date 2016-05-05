@@ -81,6 +81,8 @@ document.addEventListener('click', (event) => {
   if (event.target.href) {
     shell.openExternal(event.target.href)
     event.preventDefault()
+  } else if (event.target.classList.contains('js-refresh-action')) {
+    updateWeather()
   }
 })
 
