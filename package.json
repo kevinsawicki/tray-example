@@ -2,10 +2,19 @@
   "name": "tray-example",
   "version": "1.0.0",
   "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
   "license": "ISC",
+  "author": "Kevin Sawicki",
+  "scripts": {
+    "start": "./node_modules/.bin/electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinsawicki/tray-example.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kevinsawicki/tray-example/issues"
+  },
+  "homepage": "https://github.com/kevinsawicki/tray-example#readme",
   "devDependencies": {
     "electron-prebuilt": "^0.37.8"
   }
