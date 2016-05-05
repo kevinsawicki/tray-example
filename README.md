@@ -5,6 +5,7 @@ A simple app to build a native-looking tray popover app.
 The app shows the current weather and refreshes every 5 minutes.
 
 Built with [photon](http://photonkit.com).
+Uses the [Dark Sky Forecast API](https://developer.forecast.io).
 
 ## Running
 
