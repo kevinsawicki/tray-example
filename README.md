@@ -1,8 +1,9 @@
-# Electron Tray Mac OS X Example App
+# Tray Example
 
-A simple app to build a native-looking tray popover app.
+An example app for building a native-looking Mac OS X tray app with a popover
+using [Electron](http://electron.atom.io).
 
-The app shows the current weather and refreshes every 5 minutes.
+The app shows the weather for the current location and refreshes every 5 minutes.
 
 Built with [photon](http://photonkit.com).
 Uses the [Dark Sky Forecast API](https://developer.forecast.io).
