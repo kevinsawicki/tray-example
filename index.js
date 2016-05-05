@@ -69,12 +69,9 @@ const getWindDirection = (direction) => {
 
 const updateWeather = () => {
   getGeoLocation().then(getWeather).then(function (weather) {
-    ipcRenderer.send('weather', weather)
+    ipcRenderer.send('weather-updated', weather)
     render(weather)
   })
-
-  const fiveMinutes = 5 * 60 * 1000
-  setTimeout(updateWeather, fiveMinutes)
 }
 
 document.addEventListener('click', (event) => {
@@ -87,3 +84,4 @@ document.addEventListener('click', (event) => {
 })
 
 updateWeather()
+ipcRenderer.on('update-weather', updateWeather)

@@ -8,6 +8,7 @@ app.dock.hide()
 app.on('ready', () => {
   createTray()
   createWindow()
+  scheduleUpdates()
 })
 
 const createTray = () => {
@@ -30,6 +31,11 @@ const createWindow = () => {
   window.on('blur', () => window.hide())
 }
 
+const scheduleUpdates = () => {
+  const tenMinutes = 10 * 60 * 1000
+  setInterval(() => window.webContents.send('update-weather'), tenMinutes)
+}
+
 const toggleWindow = (trayIconBounds) => {
   const windowBounds = window.getBounds()
   const x = Math.round(trayIconBounds.x + (trayIconBounds.width / 2) - (windowBounds.width / 2))
@@ -39,10 +45,10 @@ const toggleWindow = (trayIconBounds) => {
   window.isVisible() ? window.hide() : window.show()
 }
 
-ipcMain.on('weather', (event, weather) => {
-  const {icon, summary, temperature} = weather.currently
+ipcMain.on('weather-updated', (event, weather) => {
+  const {icon, summary, temperature, time} = weather.currently
   tray.setTitle(`${Math.round(temperature)}°`)
-  tray.setToolTip(summary)
+  tray.setToolTip(`${summary} at ${new Date(time * 1000).toLocaleTimeString()}`)
 
   switch (icon) {
     case 'cloudy':
