@@ -8,7 +8,6 @@ app.dock.hide()
 app.on('ready', () => {
   createTray()
   createWindow()
-  scheduleUpdates()
 })
 
 const createTray = () => {
@@ -25,15 +24,13 @@ const createWindow = () => {
     frame: false,
     fullscreenable: false,
     resizable: false,
-    transparent: true
+    transparent: true,
+    webPreferences: {
+      backgroundThrottling: false
+    }
   })
   window.loadURL(`file://${path.join(__dirname, 'index.html')}`)
   window.on('blur', () => window.hide())
-}
-
-const scheduleUpdates = () => {
-  const tenMinutes = 10 * 60 * 1000
-  setInterval(() => window.webContents.send('update-weather'), tenMinutes)
 }
 
 const toggleWindow = (trayIconBounds) => {

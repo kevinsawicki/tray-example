@@ -83,5 +83,6 @@ document.addEventListener('click', (event) => {
   }
 })
 
+const tenMinutes = 10 * 60 * 1000
+setInterval(updateWeather, tenMinutes)
 updateWeather()
-ipcRenderer.on('update-weather', updateWeather)
