@@ -38,7 +38,7 @@ const render = (weather) => {
   document.querySelector('.js-cloud-cover').textContent = `${Math.round(currently.cloudCover * 100)}%`
 
   document.querySelector('.js-precipitation-chance').textContent = `${Math.round(currently.precipProbability * 100)}%`
-  document.querySelector('.js-precipitation-rate').textContent = `${Math.round(currently.precipIntensity * 100)}`
+  document.querySelector('.js-precipitation-rate').textContent = currently.precipIntensity
 }
 
 const getWindDirection = (direction) => {
