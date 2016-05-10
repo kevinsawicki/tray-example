@@ -21,9 +21,10 @@ const getWeather = (position) => {
 
 const render = (weather) => {
   const currently = weather.currently
+  currently.time = Date.now()
 
   document.querySelector('.js-summary').textContent = currently.summary
-  document.querySelector('.js-update-time').textContent = `at ${new Date(currently.time * 1000).toLocaleTimeString()}`
+  document.querySelector('.js-update-time').textContent = `at ${new Date(currently.time).toLocaleTimeString()}`
 
   document.querySelector('.js-temperature').textContent = `${Math.round(currently.temperature)}° F`
   document.querySelector('.js-apparent').textContent = `${Math.round(currently.apparentTemperature)}° F`

@@ -45,7 +45,7 @@ const toggleWindow = (trayIconBounds) => {
 ipcMain.on('weather-updated', (event, weather) => {
   const {icon, summary, temperature, time} = weather.currently
   tray.setTitle(`${Math.round(temperature)}°`)
-  tray.setToolTip(`${summary} at ${new Date(time * 1000).toLocaleTimeString()}`)
+  tray.setToolTip(`${summary} at ${new Date(time).toLocaleTimeString()}`)
 
   switch (icon) {
     case 'cloudy':
