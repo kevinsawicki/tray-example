@@ -1,6 +1,8 @@
 const {app, BrowserWindow, ipcMain, Tray} = require('electron')
 const path = require('path')
 
+const assetsDirectory = path.join(__dirname, 'assets')
+
 let tray = undefined
 let window = undefined
 
@@ -11,7 +13,7 @@ app.on('ready', () => {
 })
 
 const createTray = () => {
-  tray = new Tray(path.join(__dirname, 'assets', 'sunTemplate.png'))
+  tray = new Tray(path.join(assetsDirectory, 'sunTemplate.png'))
   tray.on('click', (event, bounds) => toggleWindow(bounds))
   tray.on('double-click', (event, bounds) => toggleWindow(bounds))
 }
@@ -58,21 +60,21 @@ ipcMain.on('weather-updated', (event, weather) => {
     case 'fog':
     case 'partly-cloudy-day':
     case 'partly-cloudy-night':
-      tray.setImage(path.join(__dirname, 'assets', 'cloudTemplate.png'))
+      tray.setImage(path.join(assetsDirectory, 'cloudTemplate.png'))
       break
     case 'rain':
     case 'sleet':
     case 'snow':
-      tray.setImage(path.join(__dirname, 'assets', 'umbrellaTemplate.png'))
+      tray.setImage(path.join(assetsDirectory, 'umbrellaTemplate.png'))
       break
     case 'clear-night':
-      tray.setImage(path.join(__dirname, 'assets', 'moonTemplate.png'))
+      tray.setImage(path.join(assetsDirectory, 'moonTemplate.png'))
       break
     case 'wind':
-      tray.setImage(path.join(__dirname, 'assets', 'flagTemplate.png'))
+      tray.setImage(path.join(assetsDirectory, 'flagTemplate.png'))
       break
     case 'clear-day':
     default:
-      tray.setImage(path.join(__dirname, 'assets', 'sunTemplate.png'))
+      tray.setImage(path.join(assetsDirectory, 'sunTemplate.png'))
   }
 })
