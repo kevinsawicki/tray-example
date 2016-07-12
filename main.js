@@ -16,6 +16,14 @@ const createTray = () => {
   tray.on('double-click', (event, bounds) => toggleWindow(bounds))
 }
 
+const getWindowPosition = () => {
+  const windowBounds = window.getBounds()
+  const trayBounds = tray.getBounds()
+  const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2))
+  const y = Math.round(trayBounds.y + trayBounds.height + 4)
+  return {x: x, y: y}
+}
+
 const createWindow = () => {
   window = new BrowserWindow({
     width: 300,
@@ -31,14 +39,12 @@ const createWindow = () => {
   })
   window.loadURL(`file://${path.join(__dirname, 'index.html')}`)
   window.on('blur', () => window.hide())
+  toggleWindow()
 }
 
-const toggleWindow = (trayIconBounds) => {
-  const windowBounds = window.getBounds()
-  const x = Math.round(trayIconBounds.x + (trayIconBounds.width / 2) - (windowBounds.width / 2))
-  const y = Math.round(trayIconBounds.y + trayIconBounds.height + 4)
-
-  window.setPosition(x, y, false)
+const toggleWindow = () => {
+  const position = getWindowPosition()
+  window.setPosition(position.x, position.y, false)
   window.isVisible() ? window.hide() : window.show()
 }
 
