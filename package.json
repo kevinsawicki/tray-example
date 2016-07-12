@@ -5,7 +5,7 @@
   "license": "ISC",
   "author": "Kevin Sawicki",
   "scripts": {
-    "start": "./node_modules/.bin/electron ."
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,6 @@
   },
   "homepage": "https://github.com/kevinsawicki/tray-example#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.37.8"
+    "electron-prebuilt": "^1.2.6"
   }
 }
