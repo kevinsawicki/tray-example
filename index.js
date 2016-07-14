@@ -2,6 +2,18 @@ const {ipcRenderer, shell} = require('electron')
 
 let previousWeather = undefined
 
+document.addEventListener('click', (event) => {
+  if (event.target.href) {
+    // Open links in external browser
+    shell.openExternal(event.target.href)
+    event.preventDefault()
+  } else if (event.target.classList.contains('js-refresh-action')) {
+    updateWeather()
+  } else if (event.target.classList.contains('js-quit-action')) {
+    window.close()
+  }
+})
+
 const getGeoLocation = () => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -21,7 +33,7 @@ const getWeather = (position) => {
   })
 }
 
-const render = (weather) => {
+const updateView = (weather) => {
   const currently = weather.currently
 
   document.querySelector('.js-summary').textContent = currently.summary
@@ -104,23 +116,11 @@ const updateWeather = () => {
     weather.currently.time = Date.now()
 
     ipcRenderer.send('weather-updated', weather)
-    render(weather)
+    updateView(weather)
     sendNotification(weather)
     previousWeather = weather
   })
 }
-
-document.addEventListener('click', (event) => {
-  if (event.target.href) {
-    // Open links in external browser
-    shell.openExternal(event.target.href)
-    event.preventDefault()
-  } else if (event.target.classList.contains('js-refresh-action')) {
-    updateWeather()
-  } else if (event.target.classList.contains('js-quit-action')) {
-    window.close()
-  }
-})
 
 // Refresh weather every 10 minutes
 const tenMinutes = 10 * 60 * 1000
