@@ -44,9 +44,13 @@ const createWindow = () => {
 }
 
 const toggleWindow = () => {
-  const position = getWindowPosition()
-  window.setPosition(position.x, position.y, false)
-  window.isVisible() ? window.hide() : window.show()
+  if (window.isVisible()) {
+    window.hide()
+  } else {
+    const position = getWindowPosition()
+    window.setPosition(position.x, position.y, false)
+    window.show()
+  }
 }
 
 ipcMain.on('weather-updated', (event, weather) => {
