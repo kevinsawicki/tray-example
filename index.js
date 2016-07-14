@@ -117,6 +117,8 @@ document.addEventListener('click', (event) => {
     event.preventDefault()
   } else if (event.target.classList.contains('js-refresh-action')) {
     updateWeather()
+  } else if (event.target.classList.contains('js-quit-action')) {
+    window.close()
   }
 })
 

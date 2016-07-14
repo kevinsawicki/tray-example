@@ -14,6 +14,10 @@ app.on('ready', () => {
   createWindow()
 })
 
+app.on('window-all-closed', () => {
+  app.quit()
+})
+
 const createTray = () => {
   tray = new Tray(path.join(assetsDirectory, 'sunTemplate.png'))
   tray.on('right-click', toggleWindow)
