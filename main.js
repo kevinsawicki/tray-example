@@ -6,7 +6,9 @@ const assetsDirectory = path.join(__dirname, 'assets')
 let tray = undefined
 let window = undefined
 
+// Don't show the app in the doc
 app.dock.hide()
+
 app.on('ready', () => {
   createTray()
   createWindow()
@@ -21,8 +23,13 @@ const createTray = () => {
 const getWindowPosition = () => {
   const windowBounds = window.getBounds()
   const trayBounds = tray.getBounds()
+
+  // Center window horizontally below the tray icon
   const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2))
+
+  // Position window 4 pixels vertically below the tray icon
   const y = Math.round(trayBounds.y + trayBounds.height + 4)
+
   return {x: x, y: y}
 }
 
@@ -36,10 +43,14 @@ const createWindow = () => {
     resizable: false,
     transparent: true,
     webPreferences: {
+      // Prevents renderer process code from not running when window is
+      // hidden
       backgroundThrottling: false
     }
   })
   window.loadURL(`file://${path.join(__dirname, 'index.html')}`)
+
+  // Hide the window when it loses focus
   window.on('blur', () => window.hide())
 }
 
@@ -63,11 +74,15 @@ ipcMain.on('show-window', () => {
 })
 
 ipcMain.on('weather-updated', (event, weather) => {
-  const {icon, summary, temperature, time} = weather.currently
-  tray.setTitle(`${Math.round(temperature)}°`)
-  tray.setToolTip(`${summary} at ${new Date(time).toLocaleTimeString()}`)
+  // Show "feels like" temperature in tray
+  tray.setTitle(`${Math.round(weather.currently.apparentTemperature)}°`)
 
-  switch (icon) {
+  // Show summary and last refresh time as hover tooltip
+  const time = new Date(weather.currently.time).toLocaleTimeString()
+  tray.setToolTip(`${weather.currently.summary} at ${time}`)
+
+  // Update icon for different weather types
+  switch (weather.currently.icon) {
     case 'cloudy':
     case 'fog':
     case 'partly-cloudy-day':

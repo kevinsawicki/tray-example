@@ -112,6 +112,7 @@ const updateWeather = () => {
 
 document.addEventListener('click', (event) => {
   if (event.target.href) {
+    // Open links in external browser
     shell.openExternal(event.target.href)
     event.preventDefault()
   } else if (event.target.classList.contains('js-refresh-action')) {
@@ -119,6 +120,9 @@ document.addEventListener('click', (event) => {
   }
 })
 
+// Refresh weather every 10 minutes
 const tenMinutes = 10 * 60 * 1000
 setInterval(updateWeather, tenMinutes)
+
+// Update initial weather when loaded
 updateWeather()
