@@ -14,6 +14,7 @@ app.on('ready', () => {
   createWindow()
 })
 
+// Quit the app when the window is closed
 app.on('window-all-closed', () => {
   app.quit()
 })
