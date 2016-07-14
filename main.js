@@ -47,11 +47,20 @@ const toggleWindow = () => {
   if (window.isVisible()) {
     window.hide()
   } else {
-    const position = getWindowPosition()
-    window.setPosition(position.x, position.y, false)
-    window.show()
+    showWindow()
   }
 }
+
+const showWindow = () => {
+  const position = getWindowPosition()
+  window.setPosition(position.x, position.y, false)
+  window.show()
+  window.focus()
+}
+
+ipcMain.on('show-window', () => {
+  showWindow()
+})
 
 ipcMain.on('weather-updated', (event, weather) => {
   const {icon, summary, temperature, time} = weather.currently
