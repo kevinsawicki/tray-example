@@ -22,7 +22,14 @@ app.on('window-all-closed', () => {
 const createTray = () => {
   tray = new Tray(path.join(assetsDirectory, 'sunTemplate.png'))
   tray.on('right-click', toggleWindow)
-  tray.on('click', toggleWindow)
+  tray.on('click', function (event) {
+    toggleWindow()
+
+    // Show devtools when command clicked
+    if (window.isVisible() && process.defaultApp && event.metaKey) {
+      window.openDevTools({mode: 'detach'})
+    }
+  })
   tray.on('double-click', toggleWindow)
 }
 
@@ -57,7 +64,11 @@ const createWindow = () => {
   window.loadURL(`file://${path.join(__dirname, 'index.html')}`)
 
   // Hide the window when it loses focus
-  window.on('blur', () => window.hide())
+  window.on('blur', () => {
+    if (!window.webContents.isDevToolsOpened()) {
+      window.hide()
+    }
+  })
 }
 
 const toggleWindow = () => {

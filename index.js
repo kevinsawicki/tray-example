@@ -26,6 +26,7 @@ const getWeather = (position) => {
   const apiKey = '781969e20c5d295ae9bd8da62df0d3f7'
 
   const location = `${position.coords.latitude},${position.coords.longitude}`
+  console.log(`Getting weather for ${location}`)
   const url = `https://api.forecast.io/forecast/${apiKey}/${location}`
 
   return window.fetch(url).then((response) => {
@@ -114,6 +115,8 @@ const updateWeather = () => {
   getGeoLocation().then(getWeather).then((weather) => {
     // Use local time
     weather.currently.time = Date.now()
+
+    console.log('Got weather', weather)
 
     ipcRenderer.send('weather-updated', weather)
     updateView(weather)
