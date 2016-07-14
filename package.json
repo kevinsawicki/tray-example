@@ -7,7 +7,7 @@
   "author": "Kevin Sawicki",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager ./ --platform=darwin --arch=x64 --out=out"
+    "package": "electron-packager ./ --platform=darwin --arch=x64 --out=out --icon=./icon.icns --overwrite"
   },
   "repository": {
     "type": "git",
