@@ -41,7 +41,6 @@ const createWindow = () => {
   })
   window.loadURL(`file://${path.join(__dirname, 'index.html')}`)
   window.on('blur', () => window.hide())
-  toggleWindow()
 }
 
 const toggleWindow = () => {
