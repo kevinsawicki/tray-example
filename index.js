@@ -99,7 +99,7 @@ const sendNotification = (weather) => {
 }
 
 const updateWeather = () => {
-  getGeoLocation().then(getWeather).then(function (weather) {
+  getGeoLocation().then(getWeather).then((weather) => {
     // Use local time
     weather.currently.time = Date.now()
 
