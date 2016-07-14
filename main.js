@@ -16,8 +16,9 @@ app.on('ready', () => {
 
 const createTray = () => {
   tray = new Tray(path.join(assetsDirectory, 'sunTemplate.png'))
-  tray.on('click', (event, bounds) => toggleWindow(bounds))
-  tray.on('double-click', (event, bounds) => toggleWindow(bounds))
+  tray.on('right-click', toggleWindow)
+  tray.on('click', toggleWindow)
+  tray.on('double-click', toggleWindow)
 }
 
 const getWindowPosition = () => {
