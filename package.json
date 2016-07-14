@@ -1,11 +1,13 @@
 {
-  "name": "tray-example",
+  "name": "weathered",
+  "productName": "Weathered",
   "version": "1.0.0",
   "main": "main.js",
   "license": "ISC",
   "author": "Kevin Sawicki",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-packager ./ --platform=darwin --arch=x64 --out=out"
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,7 @@
   },
   "homepage": "https://github.com/kevinsawicki/tray-example#readme",
   "devDependencies": {
+    "electron-packager": "^7.3.0",
     "electron-prebuilt": "^1.2.6"
   }
 }
