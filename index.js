@@ -1,6 +1,7 @@
 const {ipcRenderer, shell} = require('electron')
 
 let previousWeather = undefined
+let voice = undefined
 
 document.addEventListener('click', (event) => {
   if (event.target.href) {
@@ -108,7 +109,21 @@ const sendNotification = (weather) => {
     notification.onclick = () => {
       ipcRenderer.send('show-window')
     }
+
+    speakTheGoodNews(weather)
   }
+}
+
+const speakTheGoodNews = (weather) => {
+  const summary = weather.currently.summary.toLowerCase()
+  const feelsLike = Math.round(weather.currently.apparentTemperature)
+  const utterance = new SpeechSynthesisUtterance(`Go outside! The weather is ${summary} and feels like ${feelsLike} degrees.`)
+  utterance.voice = voice
+  speechSynthesis.speak(utterance)
+}
+
+speechSynthesis.onvoiceschanged = () => {
+  voice = speechSynthesis.getVoices().find((voice) => voice.name === 'Good News')
 }
 
 const updateWeather = () => {
@@ -130,4 +145,4 @@ const tenMinutes = 10 * 60 * 1000
 setInterval(updateWeather, tenMinutes)
 
 // Update initial weather when loaded
-updateWeather()
+document.addEventListener('DOMContentLoaded', updateWeather)
