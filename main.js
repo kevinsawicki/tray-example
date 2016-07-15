@@ -22,6 +22,7 @@ app.on('window-all-closed', () => {
 const createTray = () => {
   tray = new Tray(path.join(assetsDirectory, 'sunTemplate.png'))
   tray.on('right-click', toggleWindow)
+  tray.on('double-click', toggleWindow)
   tray.on('click', function (event) {
     toggleWindow()
 
@@ -30,7 +31,6 @@ const createTray = () => {
       window.openDevTools({mode: 'detach'})
     }
   })
-  tray.on('double-click', toggleWindow)
 }
 
 const getWindowPosition = () => {
