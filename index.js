@@ -1,5 +1,9 @@
 const {ipcRenderer, shell} = require('electron')
 const unit = 'si' // 'us'
+const units = {
+  temperature: unit === 'us' ? 'F' : 'C',
+  distance: unit === 'us' ? 'miles' : 'kilometers'
+}
 
 let previousWeather = undefined
 let voice = undefined
@@ -37,11 +41,6 @@ const getWeather = (position) => {
 }
 
 const updateView = (weather) => {
-  const units = {
-    temperature: unit === 'us' ? 'F' : 'C',
-    distance: unit === 'us' ? 'miles' : 'kilometers'
-  }
-
   const currently = weather.currently
 
   document.querySelector('.js-summary').textContent = currently.summary
@@ -108,7 +107,7 @@ const sendNotification = (weather) => {
     const summary = weather.currently.summary.toLowerCase()
     const feelsLike = Math.round(weather.currently.apparentTemperature)
     let notification = new Notification('Go outside', {
-      body: `The weather is ${summary} and feels like ${feelsLike}° C`
+      body: `The weather is ${summary} and feels like ${feelsLike}° ${units['temperature']}`
     })
 
     // Show window when notification is clicked
@@ -123,7 +122,7 @@ const sendNotification = (weather) => {
 const speakTheGoodNews = (weather) => {
   const summary = weather.currently.summary.toLowerCase()
   const feelsLike = Math.round(weather.currently.apparentTemperature)
-  const utterance = new SpeechSynthesisUtterance(`Go outside! The weather is ${summary} and feels like ${feelsLike} degrees.`)
+  const utterance = new SpeechSynthesisUtterance(`Go outside! The weather is ${summary} and feels like ${feelsLike}° ${units['temperature']}.`)
   utterance.voice = voice
   speechSynthesis.speak(utterance)
 }
