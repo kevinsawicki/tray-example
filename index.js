@@ -109,8 +109,6 @@ const sendNotification = (weather) => {
     notification.onclick = () => {
       ipcRenderer.send('show-window')
     }
-
-    speakTheGoodNews(weather)
   }
 }
 
