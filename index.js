@@ -2,7 +2,8 @@ const {ipcRenderer, shell} = require('electron')
 const unit = 'si' // 'us'
 const units = {
   temperature: unit === 'us' ? 'F' : 'C',
-  distance: unit === 'us' ? 'miles' : 'kilometers'
+  distance: unit === 'us' ? 'miles' : 'kilometers',
+  depth: unit === 'us' ? 'inches' : 'millimeters'
 }
 
 let previousWeather = undefined
@@ -59,7 +60,7 @@ const updateView = (weather) => {
   document.querySelector('.js-cloud-cover').textContent = `${Math.round(currently.cloudCover * 100)}%`
 
   document.querySelector('.js-precipitation-chance').textContent = `${Math.round(currently.precipProbability * 100)}%`
-  document.querySelector('.js-precipitation-rate').textContent = currently.precipIntensity
+  document.querySelector('.js-precipitation-rate').textContent = `${currently.precipIntensity} ${units['depth']}`
 }
 
 const getWindDirection = (direction) => {
