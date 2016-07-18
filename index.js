@@ -1,4 +1,5 @@
 const {ipcRenderer, shell} = require('electron')
+const unit = 'si' // 'us'
 
 let previousWeather = undefined
 let voice = undefined
@@ -28,7 +29,7 @@ const getWeather = (position) => {
 
   const location = `${position.coords.latitude},${position.coords.longitude}`
   console.log(`Getting weather for ${location}`)
-  const url = `https://api.forecast.io/forecast/${apiKey}/${location}`
+  const url = `https://api.forecast.io/forecast/${apiKey}/${location}?units=${unit}`
 
   return window.fetch(url).then((response) => {
     return response.json()
@@ -36,21 +37,26 @@ const getWeather = (position) => {
 }
 
 const updateView = (weather) => {
+  const units = {
+    temperature: unit === 'us' ? 'F' : 'C',
+    distance: unit === 'us' ? 'miles' : 'kilometers'
+  }
+
   const currently = weather.currently
 
   document.querySelector('.js-summary').textContent = currently.summary
   document.querySelector('.js-update-time').textContent = `at ${new Date(currently.time).toLocaleTimeString()}`
 
-  document.querySelector('.js-temperature').textContent = `${Math.round(currently.temperature)}° F`
-  document.querySelector('.js-apparent').textContent = `${Math.round(currently.apparentTemperature)}° F`
+  document.querySelector('.js-temperature').textContent = `${Math.round(currently.temperature)}° ${units['temperature']}`
+  document.querySelector('.js-apparent').textContent = `${Math.round(currently.apparentTemperature)}° ${units['temperature']}`
 
   document.querySelector('.js-wind').textContent = `${Math.round(currently.windSpeed)} mph`
   document.querySelector('.js-wind-direction').textContent = getWindDirection(currently.windBearing)
 
-  document.querySelector('.js-dewpoint').textContent = `${Math.round(currently.dewPoint)}° F`
+  document.querySelector('.js-dewpoint').textContent = `${Math.round(currently.dewPoint)}° ${units['temperature']}`
   document.querySelector('.js-humidity').textContent = `${Math.round(currently.humidity * 100)}%`
 
-  document.querySelector('.js-visibility').textContent = `${Math.round(currently.windSpeed)} miles`
+  document.querySelector('.js-visibility').textContent = `${Math.round(currently.windSpeed)} ${units['distance']}`
   document.querySelector('.js-cloud-cover').textContent = `${Math.round(currently.cloudCover * 100)}%`
 
   document.querySelector('.js-precipitation-chance').textContent = `${Math.round(currently.precipProbability * 100)}%`
@@ -88,7 +94,7 @@ const isWeatherIdeal = (weather) => {
   if (weather.currently.precipIntensity !== 0) return false
 
   // Ideal weather is within 3 degress of the ideal temperature
-  const idealTemperature = 70
+  const idealTemperature = unit === 'us' ? 70 : 21
   const feelsLikeTemperature = weather.currently.apparentTemperature
   return Math.abs(idealTemperature - feelsLikeTemperature) <= 3
 }
@@ -102,7 +108,7 @@ const sendNotification = (weather) => {
     const summary = weather.currently.summary.toLowerCase()
     const feelsLike = Math.round(weather.currently.apparentTemperature)
     let notification = new Notification('Go outside', {
-      body: `The weather is ${summary} and feels like ${feelsLike}° F`
+      body: `The weather is ${summary} and feels like ${feelsLike}° C`
     })
 
     // Show window when notification is clicked
