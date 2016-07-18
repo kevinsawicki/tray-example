@@ -62,7 +62,8 @@
 
 .description {
   text-transform: uppercase;
-  color: #666;
+  color: var(--text-color);
+  opacity: .7;
   font-size: calc(var(--font-size) - 3px);
   font-weight: 300;
 }
