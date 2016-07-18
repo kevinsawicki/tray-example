@@ -1,5 +1,5 @@
 const {ipcRenderer, shell} = require('electron')
-const unit = 'si' // 'us'
+const unit = 'us' // 'si'
 const units = {
   temperature: unit === 'us' ? 'F' : 'C',
   distance: unit === 'us' ? 'miles' : 'kilometers',
