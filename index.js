@@ -87,6 +87,10 @@ const isWeatherIdeal = (weather) => {
   // Precipipation is never ideal...
   if (weather.currently.precipIntensity !== 0) return false
 
+  // Clouds aren't ideal...
+  const cloudCoverPercentange = Math.round(weather.currently.cloudCover * 100)
+  if (cloudCoverPercentange > 30) return false
+
   // Ideal weather is within 3 degress of the ideal temperature
   const idealTemperature = 70
   const feelsLikeTemperature = weather.currently.apparentTemperature
