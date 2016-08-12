@@ -23,8 +23,8 @@ const createTray = () => {
   tray = new Tray(path.join(assetsDirectory, 'sunTemplate.png'))
   tray.on('right-click', toggleWindow)
   tray.on('double-click', toggleWindow)
-  tray.on('click', function (event) {
-    toggleWindow()
+  tray.on('click', function (event, bounds) {
+    toggleWindow(bounds)
 
     // Show devtools when command clicked
     if (window.isVisible() && process.defaultApp && event.metaKey) {
@@ -33,9 +33,9 @@ const createTray = () => {
   })
 }
 
-const getWindowPosition = () => {
+const getWindowPosition = (bounds) => {
   const windowBounds = window.getBounds()
-  const trayBounds = tray.getBounds()
+  const trayBounds = bounds || tray.getBounds()
 
   // Center window horizontally below the tray icon
   const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2))
@@ -71,16 +71,16 @@ const createWindow = () => {
   })
 }
 
-const toggleWindow = () => {
+const toggleWindow = (bounds) => {
   if (window.isVisible()) {
     window.hide()
   } else {
-    showWindow()
+    showWindow(bounds)
   }
 }
 
-const showWindow = () => {
-  const position = getWindowPosition()
+const showWindow = (bounds) => {
+  const position = getWindowPosition(bounds)
   window.setPosition(position.x, position.y, false)
   window.show()
   window.focus()
