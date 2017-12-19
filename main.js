@@ -51,6 +51,7 @@ const createWindow = () => {
     width: 300,
     height: 450,
     show: false,
+    movable: false,
     frame: false,
     fullscreenable: false,
     resizable: false,
